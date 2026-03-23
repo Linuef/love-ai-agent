@@ -1,0 +1,33 @@
+spring:
+
+  application:
+    name: yu-ai-agent
+  profiles:
+    active: local
+  ai:
+    dashscope:
+      api-key: your-api-key
+      chat:
+        options:
+          model: qwen-plus
+server:
+  port: 8123
+  servlet:
+    context-path: /api #访问后端接口时，前缀必须以/api开头
+# springdoc-openapi
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.yupi.yuaiagent.controller  #专门扫描controller包
+# knife4j 是简单易用的接口文档
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
