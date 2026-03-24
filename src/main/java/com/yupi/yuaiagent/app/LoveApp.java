@@ -1,9 +1,12 @@
 package com.yupi.yuaiagent.app;
 
+import com.yupi.yuaiagent.advisor.MyLoggerAdvisor;
+import com.yupi.yuaiagent.advisor.ReReadingAdvisor;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemoryRepository;
@@ -12,6 +15,8 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @Slf4j
@@ -26,11 +31,21 @@ public class LoveApp {
         chatClient = ChatClient.builder(dashscopeChatModel)
                 .defaultSystem(SYSTEM_PROMPT)
                 .defaultAdvisors(
-                        MessageChatMemoryAdvisor.builder(chatMemory).build()
+                        MessageChatMemoryAdvisor.builder(chatMemory).build(),
+                        //自定义日志拦截器，可按需添加
+                        new MyLoggerAdvisor()
+                        //自定义re-reading拦截器，可按需添加
+                        /*,new ReReadingAdvisor()*/
                 )
                 .build();
     }
 
+    /**
+     * AI基础对话，支持多轮对话记忆
+     * @param message 用户输入的消息
+     * @param chatId 对话ID，用于保持多轮对话记忆
+     * @return 对话回复
+     */
     public String doChat(String message,String chatId){
         ChatResponse response = chatClient
                 .prompt()
@@ -41,5 +56,27 @@ public class LoveApp {
         String content = response.getResult().getOutput().getText();
         log.info("content:{}",content);
         return content;
+    }
+
+    record LoveReport(String title, List<String> suggestions) {
+
+    }
+
+    /**
+     * AI恋爱报告功能（实战结构化输出）
+     * @param message 用户输入的消息
+     * @param chatId 对话ID，用于保持多轮对话记忆
+     * @return 恋爱报告内容
+     */
+    public LoveReport doChatReport(String message,String chatId){
+        LoveReport loveReport = chatClient
+                .prompt()
+                .system(SYSTEM_PROMPT + "每次对话后都要生成恋爱结果，标题为{用户名}的恋爱报告，内容为建议列表，建议列表中每个建议占一行")
+                .user(message)
+                .advisors(advisor -> advisor.param(ChatMemory.CONVERSATION_ID, chatId))
+                .call()
+                .entity(LoveReport.class);
+        log.info("loveReport:{}",loveReport);
+        return loveReport;
     }
 }
