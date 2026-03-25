@@ -12,7 +12,7 @@ boolean hasNewSystemMessage = newMessages.stream()
     
 这一段源码的功能，是查看新的会话记录中，是否有新的不同于旧的系统消息
 ```
-
+ 
 
 
 ```
