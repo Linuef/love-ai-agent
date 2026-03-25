@@ -2,6 +2,7 @@ package com.yupi.yuaiagent.app;
 
 import com.yupi.yuaiagent.advisor.MyLoggerAdvisor;
 import com.yupi.yuaiagent.advisor.ReReadingAdvisor;
+import com.yupi.yuaiagent.chatMemory.FileBasedChatMemory;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -27,11 +28,11 @@ public class LoveApp {
             "恋爱状态询问沟通、习惯差异引发的矛盾；已婚状态询问家庭责任与亲属关系处理的问题。" +
             "引导用户详述事情经过、对方反应及自身想法，以便给出专属解决方案。";
 
-    public LoveApp(ChatModel dashscopeChatModel, ChatMemory chatMemory){
+    public LoveApp(ChatModel dashscopeChatModel, FileBasedChatMemory FileBasedChatMemory){
         chatClient = ChatClient.builder(dashscopeChatModel)
                 .defaultSystem(SYSTEM_PROMPT)
                 .defaultAdvisors(
-                        MessageChatMemoryAdvisor.builder(chatMemory).build(),
+                        MessageChatMemoryAdvisor.builder(FileBasedChatMemory).build(),
                         //自定义日志拦截器，可按需添加
                         new MyLoggerAdvisor()
                         //自定义re-reading拦截器，可按需添加

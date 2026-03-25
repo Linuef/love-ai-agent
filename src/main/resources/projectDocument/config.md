@@ -1,0 +1,5 @@
+# 配置类
+
+这个类目前的主要功能是把我自定义的类注册为bean，然后自动注入。
+
+我目前注册的bean有两个，都是ChatMemory类型：MessageWindowChatMemory类，FileBasedChatMemory类
