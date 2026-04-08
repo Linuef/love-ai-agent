@@ -9,11 +9,13 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemoryRepository;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -79,5 +81,26 @@ public class LoveApp {
                 .entity(LoveReport.class);
         log.info("loveReport:{}",loveReport);
         return loveReport;
+    }
+
+    @Resource
+    private VectorStore loveAppVectorStore;
+    @Resource
+    private Advisor loveAppRagCloudAdvisor;
+
+    public String doChatWithRag(String message,String chatId){
+        ChatResponse chatResponse = chatClient
+                .prompt()
+                .user(message)
+                .advisors(advisor -> advisor.param(ChatMemory.CONVERSATION_ID, chatId))
+                //应用RAG 知识库 问答（基于本地知识库）
+                /*.advisors(QuestionAnswerAdvisor.builder(loveAppVectorStore).build())*/
+                //应用RAG 知识库 检索增强(基于云知识库服务)（这个拦截器和上一个拦截器，选择一个开启就行）
+                .advisors(loveAppRagCloudAdvisor)
+                .call()
+                .chatResponse();
+        String content = chatResponse.getResult().getOutput().getText();
+        log.info("content:{}",content);
+        return content;
     }
 }

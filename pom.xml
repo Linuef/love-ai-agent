@@ -65,11 +65,25 @@
             <artifactId>dashscope-sdk-java</artifactId>
             <version>2.19.3</version>
         </dependency>
+
         <!-- Spring AI Alibaba Agent Framework -->
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
             <artifactId>spring-ai-alibaba-agent-framework</artifactId>
             <version>1.1.2.0</version>
+        </dependency>
+        <!-- Spring AI 提供的读取markdown文档的工具 -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-markdown-document-reader</artifactId>
+            <version>1.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Spring AI 通过 Advisor 特性提供了开箱即用的 RAG 功‌能 -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-advisors-vector-store</artifactId>
+            <version>1.1.2</version>
         </dependency>
 
 

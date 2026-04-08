@@ -7,6 +7,7 @@ import java.util.function.Function;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.client.ChatClientMessageAggregator;
@@ -89,7 +90,7 @@ public class MyLoggerAdvisor implements CallAdvisor, StreamAdvisor {
 
 	@Override
 	public int getOrder() {
-		return 0;
+		return 2;
 	}
 
 	@Override
