@@ -9,3 +9,4 @@ MessageWindowChatMemory类，FileBasedChatMemory类
 ### loveAppRagCloudAdvisor类
 基于云知识库服务的RAG问答拦截器， spring ai提供了DocumentRetriever接口，
 spring ai albaba用DashScopeDocumentRetriever类实现了这个接口，用于从阿里云百炼平台的知识库中检索文档。
+我在这个类中提供了两个知识库，一个是恋爱大师，一个是恋爱对象人员信息，用了两个不同的字符串实现。

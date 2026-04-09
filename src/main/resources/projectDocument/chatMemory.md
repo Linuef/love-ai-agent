@@ -72,7 +72,7 @@ static {
     kryo.setRegistrationRequired(false);
     kryo.setInstantiatorStrategy(new StdInstantiatorStrategy());
 }
-这段代码用于灵活的在kryo注册类，我不了解具体原理
+//这段代码用于灵活的在kryo注册类,我不了解具体原理
 ```
 
 
