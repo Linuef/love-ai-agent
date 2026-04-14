@@ -15,6 +15,9 @@ import org.springframework.ai.chat.memory.InMemoryChatMemoryRepository;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.rag.preretrieval.query.transformation.TranslationQueryTransformer;
+import org.springframework.ai.rag.retrieval.join.ConcatenationDocumentJoiner;
+import org.springframework.ai.rag.retrieval.search.DocumentRetriever;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,6 +44,8 @@ public class LoveApp {
                         /*,new ReReadingAdvisor()*/
                 )
                 .build();
+
+
     }
 
     /**
@@ -86,7 +91,9 @@ public class LoveApp {
     @Resource
     private VectorStore loveAppVectorStore;
     @Resource
-    private Advisor loveAppRagCloudAdvisor;
+    private VectorStore pgVectorVectorStore;
+    //@Resource
+    //private Advisor loveAppRagCloudAdvisor;
 
     public String doChatWithRag(String message,String chatId){
         ChatResponse chatResponse = chatClient
@@ -94,9 +101,11 @@ public class LoveApp {
                 .user(message)
                 .advisors(advisor -> advisor.param(ChatMemory.CONVERSATION_ID, chatId))
                 //应用RAG 知识库 问答（基于本地知识库）
-                /*.advisors(QuestionAnswerAdvisor.builder(loveAppVectorStore).build())*/
+                .advisors(QuestionAnswerAdvisor.builder(loveAppVectorStore).build())
                 //应用RAG 知识库 检索增强(基于云知识库服务)（这个拦截器和上一个拦截器，选择一个开启就行）
-                .advisors(loveAppRagCloudAdvisor)
+                //.advisors(loveAppRagCloudAdvisor)
+                //应用RAG 知识库 问答（基于PGVectorStore 向量存储）
+                //.advisors(QuestionAnswerAdvisor.builder(pgVectorVectorStore).build())
                 .call()
                 .chatResponse();
         String content = chatResponse.getResult().getOutput().getText();

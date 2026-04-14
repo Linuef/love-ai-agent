@@ -16,12 +16,17 @@ import org.springframework.ai.rag.advisor.RetrievalAugmentationAdvisor;
 import org.springframework.ai.rag.retrieval.search.DocumentRetriever;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.File;
 import java.util.List;
+
+import static org.springframework.ai.vectorstore.pgvector.PgVectorStore.PgDistanceType.COSINE_DISTANCE;
+import static org.springframework.ai.vectorstore.pgvector.PgVectorStore.PgIndexType.HNSW;
 
 @Configuration
 public class AiConfig {
@@ -83,6 +88,29 @@ public class AiConfig {
                 .documentRetriever(documentRetriever)
                 .build();
     }
+
+    /**
+     * 基于PostgreSQL的向量存储，把文档转换为向量，用于相似度搜索（基于PostgreSQL数据库）(手动整合)
+     * @param jdbcTemplate
+     * @param dashscopeEmbeddingModel
+     * @return
+     */
+    /*@Bean
+    public VectorStore pgvectorVectorStore(JdbcTemplate jdbcTemplate, EmbeddingModel dashscopeEmbeddingModel) {
+        VectorStore vectorStore = PgVectorStore.builder(jdbcTemplate, dashscopeEmbeddingModel)
+                .dimensions(1024)
+                .distanceType(COSINE_DISTANCE)
+                .indexType(HNSW)
+                .initializeSchema(true)
+                .schemaName("public")
+                .vectorTableName("vector_store")
+                .maxDocumentBatchSize(10000)
+                .build();
+        List<Document> documents = loveAppDocumentLoader.loadMarkdowns();
+
+        vectorStore.add(documents);
+        return vectorStore;
+    }*/
 
 
 }

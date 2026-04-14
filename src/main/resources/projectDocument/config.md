@@ -1,6 +1,7 @@
-# 配置类
+# 配置类 config包下
 
 这个类目前的主要功能是把我自定义的类注册为bean，然后自动注入。
+## AiConfig类
 
 ### ChatMemory类型
 MessageWindowChatMemory类，FileBasedChatMemory类
@@ -10,3 +11,9 @@ MessageWindowChatMemory类，FileBasedChatMemory类
 基于云知识库服务的RAG问答拦截器， spring ai提供了DocumentRetriever接口，
 spring ai albaba用DashScopeDocumentRetriever类实现了这个接口，用于从阿里云百炼平台的知识库中检索文档。
 我在这个类中提供了两个知识库，一个是恋爱大师，一个是恋爱对象人员信息，用了两个不同的字符串实现。
+### pgvectorVectorStore类
+基于pgvector数据库的向量存储，通过loveAppDocumentLoader类读取文档并切片，然后存入pgvector数据库，pgvector数据库用的是
+阿里云的pgvector数据库。
+需要注意的是，pgvectorstore的doAdd方法与simplevectorstore的add方法不同，pgvectorstore的doAdd方法是一次性插入所有文档，
+而simplevectorstore的add方法是逐个插入，而我用的dashscopeEmbeddingModel批量插入的上限是10个文档，因此LoveApp类里的
+doChatWithRag()方法里用的还是simplevectorstore。

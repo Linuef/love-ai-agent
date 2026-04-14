@@ -23,5 +23,5 @@
 2. 在LoveApp类创建了一个record类，LoveReport，在doChatReport方法中，运用ChatClient的 链式编程：“.entity(LoveReport.class)”，让AI输出恋爱报告
 
 ### doChatWithRag方法
-这个方法用了Spring AI的特性：RAG问答拦截器,实现方式与doChat方法差不多，主要是拦截器的实现不同，拦截器的实现类是loveAppRagCloudAdvisor类或者 loveAppVectorStore类，
-一个是基于云知识库服务的RAG问答拦截器，一个是基于本地知识库的向量存储，
+这个方法用了Spring AI的特性：RAG问答拦截器,实现方式与doChat方法差不多，主要是拦截器的实现不同，拦截器的实现类是loveAppRagCloudAdvisor类，loveAppVectorStore类，pgvectorVectorStore类，
+一个是基于云知识库服务(阿里云)的RAG问答拦截器，一个是基于本地知识库的向量存储，一个是基于pgvector数据库的向量存储。

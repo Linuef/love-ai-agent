@@ -85,8 +85,27 @@
             <artifactId>spring-ai-advisors-vector-store</artifactId>
             <version>1.1.2</version>
         </dependency>
-
-
+        <!--手动整合PGVector向量存储（下面三个依赖都是） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-pgvector-store</artifactId>
+            <version>1.0.0-M6</version>
+        </dependency>
+        <!-- 自动整合PGVector 向量存储 -->
+        <!--<dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-vector-store-pgvector</artifactId>
+            <version>1.0.0-M7</version>
+        </dependency>-->
         <!-- DashScope ChatModel  -->
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
