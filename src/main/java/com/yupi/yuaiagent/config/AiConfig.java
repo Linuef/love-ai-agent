@@ -5,7 +5,9 @@ import com.alibaba.cloud.ai.dashscope.rag.DashScopeDocumentRetriever;
 import com.alibaba.cloud.ai.dashscope.rag.DashScopeDocumentRetrieverOptions;
 import com.yupi.yuaiagent.chatMemory.FileBasedChatMemory;
 import com.yupi.yuaiagent.rag.LoveAppDocumentLoader;
+import com.yupi.yuaiagent.rag.MyKeywordEnricher;
 import jakarta.annotation.Resource;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
 import org.springframework.ai.chat.memory.ChatMemory;
@@ -14,6 +16,7 @@ import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.rag.advisor.RetrievalAugmentationAdvisor;
 import org.springframework.ai.rag.retrieval.search.DocumentRetriever;
+import org.springframework.ai.transformer.KeywordMetadataEnricher;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
@@ -52,6 +55,8 @@ public class AiConfig {
     }
     @Resource
     private LoveAppDocumentLoader loveAppDocumentLoader;
+    @Resource
+    private MyKeywordEnricher myKeywordEnricher;
 
     /**
      * 基于向量的存储，把文档转换为向量，用于相似度搜索（基于本地知识库）
@@ -64,6 +69,7 @@ public class AiConfig {
                 .build();
 
         List<Document> documents = loveAppDocumentLoader.loadMarkdowns();
+        /*documents = myKeywordEnricher.enrichDocuments(documents);*/
         simpleVectorStore.add(documents);
         return simpleVectorStore;
     }

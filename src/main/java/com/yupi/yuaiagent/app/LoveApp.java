@@ -3,6 +3,8 @@ package com.yupi.yuaiagent.app;
 import com.yupi.yuaiagent.advisor.MyLoggerAdvisor;
 import com.yupi.yuaiagent.advisor.ReReadingAdvisor;
 import com.yupi.yuaiagent.chatMemory.FileBasedChatMemory;
+import com.yupi.yuaiagent.rag.LoveAppRagCustomAdvisorFactory;
+import com.yupi.yuaiagent.rag.QueryRewriter;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -90,26 +92,36 @@ public class LoveApp {
 
     @Resource
     private VectorStore loveAppVectorStore;
-    @Resource
-    private VectorStore pgVectorVectorStore;
+    //@Resource
+    //private VectorStore pgVectorVectorStore;
+    //创建bean：loveAppRagCloudAdvisor时，用了过时的api：.withIndexName(KNOWLEDGE_INDEX)
     //@Resource
     //private Advisor loveAppRagCloudAdvisor;
 
+    //查询重写器，用于对用户输入进行重写，提高问答效果
+    @Resource
+    private QueryRewriter queryRewriter;
+
     public String doChatWithRag(String message,String chatId){
+        // 对用户输入进行重写
+        String rewrittenMessage  = queryRewriter.doQueryRewrite(message);
         ChatResponse chatResponse = chatClient
                 .prompt()
-                .user(message)
+                .user(rewrittenMessage)
                 .advisors(advisor -> advisor.param(ChatMemory.CONVERSATION_ID, chatId))
                 //应用RAG 知识库 问答（基于本地知识库）
-                .advisors(QuestionAnswerAdvisor.builder(loveAppVectorStore).build())
+                //.advisors(QuestionAnswerAdvisor.builder(loveAppVectorStore).build())
                 //应用RAG 知识库 检索增强(基于云知识库服务)（这个拦截器和上一个拦截器，选择一个开启就行）
                 //.advisors(loveAppRagCloudAdvisor)
                 //应用RAG 知识库 问答（基于PGVectorStore 向量存储）
                 //.advisors(QuestionAnswerAdvisor.builder(pgVectorVectorStore).build())
+                //这个rag顾问根据状态筛选文档（文档查询器+上下文增强器）
+                .advisors(LoveAppRagCustomAdvisorFactory.create(loveAppVectorStore, "已婚"))
                 .call()
                 .chatResponse();
         String content = chatResponse.getResult().getOutput().getText();
         log.info("content:{}",content);
+
         return content;
     }
 }
