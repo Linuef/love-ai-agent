@@ -38,3 +38,24 @@
 
 
 
+## MyGithubDocumentReader
+
+这个类的功能是读取github仓库里的文件，用于RAG，用alibaba提供的[GithubDocumentReader]([Document Reader 使用指南 | Spring AI Alibaba](https://java2ai.com/integration/rag/document-readers#支持的扩展实现))实现，[maven中央仓库的地址]([Maven Repository: com.alibaba.cloud.ai » spring-ai-alibaba-starter-document-reader-github](https://mvnrepository.com/artifact/com.alibaba.cloud.ai/spring-ai-alibaba-starter-document-reader-github))
+
+
+
+解析器parser用的是阿里云的[TikaDocumentParser]([Document Parser 使用指南 | Spring AI Alibaba](https://java2ai.com/integration/rag/document-parsers#示例-5与-document-reader-配合使用))  ,  [maven中央仓库的地址]([Maven Repository: com.alibaba.cloud.ai » spring-ai-alibaba-starter-document-parser-tika](https://mvnrepository.com/artifact/com.alibaba.cloud.ai/spring-ai-alibaba-starter-document-parser-tika))
+
+
+
+你需要传入的参数是：你的github账号的token，仓库的所有者owner，仓库的名字repo，仓库的分支branch，仓库的路径path，然后开始调用方法。
+
+如果你的path最终指向的是一个文件，那么调用read方法，如果指向的是一个文件夹，那么调用readList方法。
+
+注意：GHContent是原始数据，很复杂，可以是目录，也可以是单纯的文件，在GithubResource类中经过递归方法scanDirectory，把目录里的文件创建成一个个的GithubResource，GithubResource是单个文件的资源。
+
+## MyTranslationQueryTransformer
+
+调用腾讯云的机器翻译api创建了一个可以翻译语言的类，具体过程我也不太了解，参考[官方文档]([SDK 中心 Java_腾讯云](https://cloud.tencent.com/document/sdk/Java))。
+
+我当时是把官方文档复制给ai，然后让ai搜索腾讯云机器翻译的api，自动给我补全我写的代码。

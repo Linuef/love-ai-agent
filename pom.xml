@@ -52,6 +52,14 @@
             <artifactId>hutool-all</artifactId>
             <version>5.8.38</version>
         </dependency>
+        <!-- 腾讯云的机器翻译服务 -->
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java</artifactId>
+            <!-- 如 CVM 产品包：tencentcloud-sdk-java-cvm -->
+            <!-- 请到 maven 官网查询 sdk 的所有版本，例如 cvm 的产品包链接为 https://central.sonatype.com/artifact/com.tencentcloudapi/tencentcloud-sdk-java-cvm/versions -->
+            <version>3.1.1000</version>
+        </dependency>
         <!--更简单易用的生成接口文档的依赖，knife4j-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
@@ -72,18 +80,33 @@
             <artifactId>spring-ai-alibaba-agent-framework</artifactId>
             <version>1.1.2.0</version>
         </dependency>
-        <!-- Spring AI 提供的读取markdown文档的工具 -->
+        <!-- Spring AI 向量存储顾问 -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-advisors-vector-store</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
+         <!--Spring AI 提供的读取markdown文档的工具-->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-markdown-document-reader</artifactId>
             <version>1.1.2</version>
             <scope>compile</scope>
         </dependency>
-        <!-- Spring AI 通过 Advisor 特性提供了开箱即用的 RAG 功‌能 -->
+        <!-- Spring AI Alibaba 提供的文档解析工具 Tika -->
         <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-advisors-vector-store</artifactId>
-            <version>1.1.2</version>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter-document-parser-tika</artifactId>
+            <version>1.1.2.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Spring AI Alibaba 提供的读取github文档的工具 -->
+        <dependency>
+            <groupId>com.alibaba.cloud.ai</groupId>
+            <artifactId>spring-ai-alibaba-starter-document-reader-github</artifactId>
+            <version>1.1.2.2</version>
+            <scope>compile</scope>
         </dependency>
         <!--手动整合PGVector向量存储（下面三个依赖都是） -->
         <dependency>

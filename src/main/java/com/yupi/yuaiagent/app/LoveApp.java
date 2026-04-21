@@ -4,6 +4,7 @@ import com.yupi.yuaiagent.advisor.MyLoggerAdvisor;
 import com.yupi.yuaiagent.advisor.ReReadingAdvisor;
 import com.yupi.yuaiagent.chatMemory.FileBasedChatMemory;
 import com.yupi.yuaiagent.rag.LoveAppRagCustomAdvisorFactory;
+import com.yupi.yuaiagent.rag.MyTranslationQueryTransformer;
 import com.yupi.yuaiagent.rag.QueryRewriter;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -101,8 +102,14 @@ public class LoveApp {
     //查询重写器，用于对用户输入进行重写，提高问答效果
     @Resource
     private QueryRewriter queryRewriter;
+    @Resource
+    private FileBasedChatMemory FileBasedChatMemory;
+    @Resource
+    private MyTranslationQueryTransformer myTranslationQueryTransformer;
 
     public String doChatWithRag(String message,String chatId){
+        //对用户输入进行翻译
+        message = myTranslationQueryTransformer.translate(message,"en","zh");
         // 对用户输入进行重写
         String rewrittenMessage  = queryRewriter.doQueryRewrite(message);
         ChatResponse chatResponse = chatClient
