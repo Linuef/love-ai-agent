@@ -26,4 +26,6 @@
 这个方法用了Spring AI的特性：RAG问答拦截器,实现方式与doChat方法差不多，主要是拦截器的实现不同，拦截器的实现类是loveAppRagCloudAdvisor类，loveAppVectorStore类，pgvectorVectorStore类，
 一个是基于云知识库服务(阿里云)的RAG问答拦截器，一个是基于本地知识库的向量存储，一个是基于pgvector数据库的向量存储。
 
+当传入的参数message是英语时，可以用MyTranslationQueryTransformer的translate方法翻译成汉语。
+
 用QueryRewriter类的doQueryRewrite方法对传入查询进行了重写。

@@ -108,8 +108,8 @@ public class LoveApp {
     private MyTranslationQueryTransformer myTranslationQueryTransformer;
 
     public String doChatWithRag(String message,String chatId){
-        //对用户输入进行翻译
-        message = myTranslationQueryTransformer.translate(message,"en","zh");
+        //当message是英语时，可以用MyTranslationQueryTransformer翻译成汉语
+        //message = myTranslationQueryTransformer.translate(message,"en","zh");
         // 对用户输入进行重写
         String rewrittenMessage  = queryRewriter.doQueryRewrite(message);
         ChatResponse chatResponse = chatClient
