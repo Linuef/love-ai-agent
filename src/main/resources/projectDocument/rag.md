@@ -88,9 +88,11 @@ RetrievalAugmentationAdvisor类很灵活，支持传入QueryTransformer,QueryExp
 
 此外，在检索文档时，用了异步线程的方法，同时开启多个线程去检索文档，提高检索的效率，代码在下面：
 
+<span style="color:red">这里有点看不懂了</span>
+
 ```java
 // 3. Get similar documents for each query.
-Map<Query, List<List<Document>>> documentsForQuery = expandedQueries.stream()
+Map<Query, List<List<Document>>> documentsForQuery = expandedQuery.stream()
     .map(query -> CompletableFuture.supplyAsync(() -> getDocumentsForQuery(query), this.taskExecutor))
     .toList()
     .stream()
@@ -102,6 +104,9 @@ Map<Query, List<List<Document>>> documentsForQuery = expandedQueries.stream()
 元素1先到达终止方法，到达终止方法后，中间操作才开始执行（这就是stream流的惰性），元素2和3以此类推。
 因此对于上面的代码，要想实现并行检索，必须在两个.map方法间加个终止方法，不然就会变成串行检索，也就是说：
 必须把“启动任务”和“等待结果”拆分成两个独立的流操作（通过中间落地到 List 实现），这样才能实现先全部发射，再统一回收
+
+以上的解释可以忽略，我刚才把.toList()和.stream()注释掉了，依然可以正确运行。
+以后再看这个吧
 
 */
 ```

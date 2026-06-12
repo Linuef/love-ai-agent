@@ -29,3 +29,19 @@
 当传入的参数message是英语时，可以用MyTranslationQueryTransformer的translate方法翻译成汉语。
 
 用QueryRewriter类的doQueryRewrite方法对传入查询进行了重写。
+
+
+
+### doChatWithTools
+
+这个方法，给chatClient注册了一些工具，工具包含在ToolCallBack数组中。
+
+
+
+### doChatWithMcp
+
+利用 MCP 完成对话的方法。
+
+通过自动注入的 `ToolCallbackProvider` 获取到配置中定义的 MCP 服务提供的 **所有工具**，并提供给 ChatClient
+
+在类路径的mcp-servers.json文档中有我定义的MCP服务，在application.yml文件中指明了mcp-servers.json的位置。

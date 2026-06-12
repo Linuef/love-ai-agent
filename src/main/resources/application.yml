@@ -10,6 +10,14 @@ spring:
       chat:
         options:
           model: qwen-plus
+    mcp:
+      client:
+        #stdio:
+          #servers-configuration: classpath:mcp-servers.json #MCP客户端配置
+        sse:
+          connections:
+            server1:
+              url: http://localhost:8127
 
 server:
   port: 8123
@@ -32,3 +40,8 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
+
+logging:
+  level:
+    org.springframework.ai: DEBUG  #工具调用的所有主要操作都在 DEBUG 级别记录日志，改成debug级别，就能看到工具‌调用的过程了
+
