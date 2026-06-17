@@ -129,3 +129,9 @@ try {
 # GetCurrentTimeTool
 
 获取当前时间的工具类
+
+
+
+# TerminateTool
+
+终止工具，作用是让自主规划智能体能够合理的中断。

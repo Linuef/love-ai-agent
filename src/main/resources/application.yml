@@ -9,15 +9,15 @@ spring:
       #api-key: your-api-key
       chat:
         options:
-          model: qwen-plus
+          model: qwen-max  #你可以选择 qwen-turbo, qwen-plus, 或 qwen-max
     mcp:
       client:
-        #stdio:
-          #servers-configuration: classpath:mcp-servers.json #MCP客户端配置
-        sse:
-          connections:
-            server1:
-              url: http://localhost:8127
+        stdio:
+          servers-configuration: classpath:mcp-servers.json #MCP客户端配置
+        #sse:
+          #connections:
+            #server1:
+              #url: http://localhost:8127
 
 server:
   port: 8123

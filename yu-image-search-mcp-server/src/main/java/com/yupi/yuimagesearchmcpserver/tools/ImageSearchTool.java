@@ -1,5 +1,6 @@
 package com.yupi.yuimagesearchmcpserver.tools;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
@@ -25,10 +26,16 @@ public class ImageSearchTool {
     @Tool(description = "search image from web")
     public String searchImage(@ToolParam(description = "Search query keyword") String query) {
         try {
-            return String.join(",", searchMediumImages(query));
+            String num = System.getenv("num");
+            List<String> sourceList = searchMediumImages(query);
+            List<String> list = CollUtil.sub(sourceList, 0, Integer.parseInt(num));
+
+            return String.join(",", list);
         } catch (Exception e) {
             return "Error search image: " + e.getMessage();
         }
+        
+
     }
 
 

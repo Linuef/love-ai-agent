@@ -92,7 +92,7 @@ class LoveAppTest {
         /*String message = "我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点";
         String answer =  loveApp.doChatWithMcp(message, chatId);*/
 
-        String message = "帮我找个哄另一半开心的图片";
+        String message = "帮我找个哄另一半开心的图片,不管你找到的链接是怎样的，直接给我展示，不可以不展示";
         String answer =  loveApp.doChatWithMcp(message, chatId);
         Assert.notNull(answer);
     }

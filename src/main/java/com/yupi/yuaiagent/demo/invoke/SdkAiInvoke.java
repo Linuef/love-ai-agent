@@ -32,7 +32,7 @@ public class SdkAiInvoke {
         GenerationParam param = GenerationParam.builder()
                 // 若没有配置环境变量，请用百炼API Key将下行替换为：.apiKey("sk-xxx")
                 .apiKey(TestApiKey.API_KEY)
-                .model("qwen3-max")
+                .model("qwen-max")
                 .messages(Arrays.asList(systemMsg, userMsg))
                 .resultFormat(GenerationParam.ResultFormat.MESSAGE)
                 .enableThinking(true)

@@ -27,6 +27,8 @@ public class ToolRegistration {
         PDFGenerationTool pdfGenerationTool = new PDFGenerationTool();
         //获取当前时间
         GetCurrentTimeTool getCurrentTimeTool = new GetCurrentTimeTool();
+        //终止工具
+        TerminateTool terminateTool = new TerminateTool();
 
         return ToolCallbacks.from(
                 fileOperationTool,
@@ -35,7 +37,8 @@ public class ToolRegistration {
                 resourceDownloadTool,
                 terminalOperationTool,
                 pdfGenerationTool,
-                getCurrentTimeTool
+                getCurrentTimeTool,
+                terminateTool
         );
     }
 }

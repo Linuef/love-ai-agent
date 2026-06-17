@@ -1,5 +1,6 @@
 package com.yupi.yuaiagent.app;
 
+import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
 import com.yupi.yuaiagent.advisor.MyLoggerAdvisor;
 import com.yupi.yuaiagent.advisor.ReReadingAdvisor;
 import com.yupi.yuaiagent.chatMemory.FileBasedChatMemory;
@@ -8,6 +9,7 @@ import com.yupi.yuaiagent.rag.MyTranslationQueryTransformer;
 import com.yupi.yuaiagent.rag.QueryRewriter;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.ai.chat.client.AdvisorParams;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -131,6 +133,7 @@ public class LoveApp {
                 .chatResponse();
         String content = chatResponse.getResult().getOutput().getText();
         log.info("content:{}",content);
+
 
         return content;
     }
