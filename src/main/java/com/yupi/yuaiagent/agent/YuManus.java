@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class YuManus extends ToolCallAgent{
+
     public YuManus(ToolCallback[] allTools, ChatModel dashscopeChatModel) {
         super(allTools);
         this.setName("yuManus");

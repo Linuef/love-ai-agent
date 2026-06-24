@@ -12,7 +12,7 @@ class PDFGenerationToolTest {
     @Test
     void generatePDF() {
         PDFGenerationTool tool = new PDFGenerationTool();
-        String result = tool.generatePDF("test.pdf", "Hello, World!");
+        String result = tool.generatePDF("test.pdf", "你好");
         Assert.notNull(result);
     }
 }

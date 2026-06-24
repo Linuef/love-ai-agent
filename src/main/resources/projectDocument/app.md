@@ -12,6 +12,12 @@
 
 功能：通过chatClient，来与AI进行交互
 
+### doChatByStream
+
+这个方法返回Flux<String>，流式输出AI的信息。
+
+不用等到信息全部生成完毕在输出，而是实时输出AI生成的信息
+
 ### doChatReport方法
 
 这个方法用了Spring AI的特性：结构化输出

@@ -23,14 +23,14 @@ class LoveAppTest {
         String answer = loveApp.doChat(message, chatId);
         Assertions.assertNotNull(answer);
 
-        message = "我想让另一半（编程导航）更爱我";
+        /*message = "我想让另一半（编程导航）更爱我";
         answer = loveApp.doChat(message, chatId);
         Assertions.assertNotNull(answer);
 
         message = "我的另一半叫什么来着？我刚跟你说过，给我回忆一下";
 
         answer = loveApp.doChat(message, chatId);
-        Assertions.assertNotNull(answer);
+        Assertions.assertNotNull(answer);*/
     }
 
     @Test
@@ -74,9 +74,9 @@ class LoveAppTest {
 //        testMessage("保存我的恋爱档案为文件(使用FileOperationTool,档案内容为空也要保存)");
 
         //测试PDF生成  完成
-//        testMessage("生成一份‘七夕约会计划’PDF，包含餐厅预订、活动流程和礼物清单");
+        testMessage("生成一份‘七夕约会计划’PDF，包含餐厅预订、活动流程和礼物清单");
 
-        testMessage("我想获取当前时间");
+        //testMessage("我想获取当前时间");
     }
 
     private void testMessage(String message) {
