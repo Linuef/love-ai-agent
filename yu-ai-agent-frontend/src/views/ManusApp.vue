@@ -7,7 +7,14 @@
 
     <main class="chat-container" ref="container">
       <div v-for="(m, idx) in messages" :key="idx" :class="['msg', m.role === 'user' ? 'right' : 'left']">
-        <div class="bubble">{{ m.text }}</div>
+        <div class="bubble">
+          <template v-if="m.role === 'ai'">
+            <p v-for="(p, pi) in m.paragraphs" :key="pi">{{ p }}</p>
+          </template>
+          <template v-else>
+            <p>{{ m.text }}</p>
+          </template>
+        </div>
       </div>
     </main>
 
@@ -48,13 +55,20 @@ export default {
       const es = new EventSource(url)
       let aiIndex = -1
 
-      es.onmessage = (e) => {
+      es.onmessage = async (e) => {
         const data = e.data || ''
         if (aiIndex === -1) {
-          messages.value.push({ role: 'ai', text: data })
+          const paragraphs = []
+          messages.value.push({ role: 'ai', text: data, paragraphs })
           aiIndex = messages.value.length - 1
         } else {
           messages.value[aiIndex].text += data
+        }
+        try {
+          const { parseStructured } = await import('../utils/parseResponse.js')
+          messages.value[aiIndex].paragraphs = parseStructured(messages.value[aiIndex].text)
+        } catch (err) {
+          messages.value[aiIndex].paragraphs = [messages.value[aiIndex].text]
         }
         scrollToBottom()
       }
@@ -65,7 +79,7 @@ export default {
     }
 
     onMounted(() => {
-      messages.value.push({ role: 'ai', text: '已连接 AI 超级智能体，随时发问。' })
+      messages.value.push({ role: 'ai', text: '已连接 AI 超级智能体，随时发问。', paragraphs: ['已连接 AI 超级智能体，随时发问。'] })
       scrollToBottom()
     })
 

@@ -12,6 +12,7 @@ body { font-family: Arial, Helvetica, sans-serif; margin: 0; background: #f5f7fb
 .msg.right { justify-content:flex-end }
 .bubble { max-width:70%; padding:10px 14px; border-radius:14px; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.06) }
 .msg.right .bubble { background:#cfe9ff }
+.bubble p { margin: 6px 0; white-space: pre-wrap }
 .composer { display:flex; gap:8px; padding:12px; background:#fff; border-top:1px solid #eee }
 .composer input { flex:1; padding:8px 12px; border-radius:8px; border:1px solid #ddd }
 .composer button { padding:8px 14px; border-radius:8px; border:none; background:#3273ff; color:#fff }
