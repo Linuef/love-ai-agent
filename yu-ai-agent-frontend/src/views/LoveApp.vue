@@ -1,5 +1,5 @@
 <template>
-  <div class="page chat-page">
+  <div class="page chat-page theme-love">
     <header class="topbar">
       <router-link to="/">← 返回</router-link>
       <h2>AI 恋爱大师</h2>
@@ -7,9 +7,10 @@
 
     <main class="chat-container" ref="container">
       <div v-for="(m, idx) in messages" :key="idx" :class="['msg', m.role === 'user' ? 'right' : 'left']">
+        <div v-if="m.role === 'ai'" class="avatar-small">❤</div>
         <div class="bubble">
           <template v-if="m.role === 'ai'">
-            <p v-for="(p, pi) in m.paragraphs" :key="pi">{{ p }}</p>
+            <p v-for="(p, pi) in (m.paragraphs || [])" :key="pi">{{ p }}</p>
           </template>
           <template v-else>
             <p>{{ m.text }}</p>

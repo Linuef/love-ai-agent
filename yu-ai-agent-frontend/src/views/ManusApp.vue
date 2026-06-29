@@ -1,5 +1,5 @@
 <template>
-  <div class="page chat-page">
+  <div class="page chat-page theme-manus">
     <header class="topbar">
       <router-link to="/">← 返回</router-link>
       <h2>AI 超级智能体</h2>
@@ -7,9 +7,10 @@
 
     <main class="chat-container" ref="container">
       <div v-for="(m, idx) in messages" :key="idx" :class="['msg', m.role === 'user' ? 'right' : 'left']">
+        <div v-if="m.role === 'ai'" class="avatar-small">🤖</div>
         <div class="bubble">
           <template v-if="m.role === 'ai'">
-            <p v-for="(p, pi) in m.paragraphs" :key="pi">{{ p }}</p>
+            <p v-for="(p, pi) in (m.paragraphs || [])" :key="pi">{{ p }}</p>
           </template>
           <template v-else>
             <p>{{ m.text }}</p>
@@ -59,10 +60,10 @@ export default {
         const data = e.data || ''
         if (aiIndex === -1) {
           const paragraphs = []
-          messages.value.push({ role: 'ai', text: data, paragraphs })
+          messages.value.push({ role: 'ai', text: data + '\n\n', paragraphs })
           aiIndex = messages.value.length - 1
         } else {
-          messages.value[aiIndex].text += data
+          messages.value[aiIndex].text += data + '\n\n'
         }
         try {
           const { parseStructured } = await import('../utils/parseResponse.js')
