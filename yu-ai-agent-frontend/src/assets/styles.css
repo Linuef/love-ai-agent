@@ -17,38 +17,46 @@ body::before{
   background-size: 40px 40px, 40px 40px;
 }
 
-.page{width:100%; max-width:1100px; margin:32px; padding-bottom:40px;}
-
-.site-footer{ text-align:center; color: rgba(234,241,255,0.65); font-size:12px; margin-top:16px; }
+.page{width:100%; max-width:1600px; margin:32px auto; padding-bottom:40px;}
 
 /* Header / neon title */
-.header-wrapper{ position:relative; overflow:hidden; }
-.flow-light{ position:absolute; inset:0; pointer-events:none; display:flex; justify-content:space-between; align-items:flex-start; }
-.light-strip{ position:absolute; top:0; width:42%; height:2px; opacity:0.8; transform:translateY(-60px) scaleX(0); filter: blur(10px);
-  background: linear-gradient(90deg, rgba(45,255,180,0), rgba(55,255,210,0.45), rgba(100,205,255,0));
+.header-wrapper{ position:relative; overflow:hidden; padding-top:36px; }
+.flow-light{ position:absolute; inset:0; pointer-events:none; display:flex; justify-content:space-between; align-items:flex-start; z-index:0; }
+.light-strip{ position:absolute; top:0; width:48%; height:4px; opacity:0.95; transform:translateY(-80px) scaleX(0); filter: blur(14px);
+  background: linear-gradient(90deg, rgba(45,255,180,0), rgba(45,255,180,0.55), rgba(100,205,255,0.15));
 }
-.light-strip.left{ left:0; transform-origin:left center; }
-.light-strip.right{ right:0; transform-origin:right center; }
-.light-strip::after{ content:''; position:absolute; top:-6px; left:0; width:100%; height:8px; background: linear-gradient(90deg, rgba(45,255,180,0), rgba(55,255,210,0.35), rgba(100,205,255,0)); filter: blur(10px); }
-.light-strip.left{ animation: flowLeft 1.8s ease forwards; }
-.light-strip.right{ animation: flowRight 1.8s ease forwards; }
+.light-strip.left{ left:-8%; transform-origin:left center; }
+.light-strip.right{ right:-8%; transform-origin:right center; }
+.light-strip::after{ content:''; position:absolute; top:-4px; left:0; width:100%; height:6px; background: linear-gradient(90deg, rgba(45,255,180,0), rgba(45,255,180,0.45), rgba(100,205,255,0)); filter: blur(14px); }
+.light-strip.left{ animation: flowLeft 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.light-strip.right{ animation: flowRight 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 @keyframes flowLeft {
-  0% { opacity:0; transform: translateX(0) translateY(-60px) scaleX(0); }
-  20% { opacity:0.55; transform: translateX(10%) translateY(-30px) scaleX(0.35); }
-  60% { opacity:0.4; transform: translateX(25%) translateY(6px) scaleX(0.7); }
-  100% { opacity:0; transform: translateX(40%) translateY(22px) scaleX(0.95); }
+  0% { opacity:0; transform: translateX(0) translateY(-80px) scaleX(0); }
+  15% { opacity:0.55; transform: translateX(8%) translateY(-28px) scaleX(0.36); }
+  45% { opacity:0.7; transform: translateX(22%) translateY(-10px) scaleX(0.72); }
+  80% { opacity:0.45; transform: translateX(38%) translateY(10px) scaleX(0.92); }
+  100% { opacity:0; transform: translateX(50%) translateY(20px) scaleX(1); }
 }
 @keyframes flowRight {
-  0% { opacity:0; transform: translateX(0) translateY(-60px) scaleX(0); }
-  20% { opacity:0.55; transform: translateX(-10%) translateY(-30px) scaleX(0.35); }
-  60% { opacity:0.4; transform: translateX(-25%) translateY(6px) scaleX(0.7); }
-  100% { opacity:0; transform: translateX(-40%) translateY(22px) scaleX(0.95); }
+  0% { opacity:0; transform: translateX(0) translateY(-80px) scaleX(0); }
+  15% { opacity:0.55; transform: translateX(-8%) translateY(-28px) scaleX(0.36); }
+  45% { opacity:0.7; transform: translateX(-22%) translateY(-10px) scaleX(0.72); }
+  80% { opacity:0.45; transform: translateX(-38%) translateY(10px) scaleX(0.92); }
+  100% { opacity:0; transform: translateX(-50%) translateY(20px) scaleX(1); }
 }
-.app-header{ position:relative; text-align:center; margin-bottom:28px; z-index:1; }
-.neon-title{ font-size:28px; font-weight:800; color:var(--text); letter-spacing:1px;
-  text-shadow: 0 0 8px rgba(50,115,255,0.18), 0 0 18px rgba(50,115,255,0.06);
+.app-header{ position:relative; text-align:center; margin-bottom:32px; z-index:1; }
+.neon-title{ font-size:3rem; font-weight:900; color:var(--text); letter-spacing:1px;
+  text-shadow: 0 0 12px rgba(50,255,210,0.22), 0 0 24px rgba(50,255,210,0.1);
 }
-.neon-sub{ color:var(--muted); margin-top:8px }
+.neon-sub{ color:var(--muted); margin-top:10px; font-size:1rem }
+
+/* wider chat and layout */
+.page.chat-page{ width:min(96%, 1460px); max-width:1460px; margin:24px auto; min-height:calc(100vh - 100px); }
+.chat-container{ width:100%; max-width:1320px; margin:0 auto; min-height: calc(100vh - 220px); }
+.bubble{ width:min(980px, 100%); max-width:980px; }
+@media (max-width: 1300px){ .chat-container{ max-width:1080px; } }
+@media (max-width: 1100px){ .chat-container{ max-width:860px; } }
+@media (max-width: 900px){ .page.chat-page{ min-height: calc(100vh - 90px); } .chat-container{ max-width:100%; } }
 
 /* Cards area */
 .cards{ display:flex; gap:20px; justify-content:center; flex-wrap:wrap }
@@ -57,6 +65,7 @@ body::before{
 .card h3{ margin:0; font-size:20px }
 .card p{ margin:8px 0 18px; color:var(--muted); font-size:14px }
 .btn-primary{ padding:10px 16px; border-radius:12px; border:none; cursor:pointer; color:#fff; font-weight:600; box-shadow:0 6px 18px rgba(50,115,255,0.18); background: linear-gradient(90deg,#2d7bff,#5a57ff); }
+.home-footer{ margin-top:26px; text-align:center; color: rgba(234,241,255,0.65); font-size:13px; }
 
 /* specific avatar styles */
 .avatar-love{ background: linear-gradient(135deg,#ff6ea9,#ff9bb3) }
@@ -70,7 +79,7 @@ body::before{
 .msg{ display:flex; gap:10px; align-items:flex-end }
 .msg.left{ justify-content:flex-start }
 .msg.right{ justify-content:flex-end }
-.bubble{ padding:12px 14px; border-radius:12px; max-width:75%; white-space:pre-wrap; box-shadow: 0 6px 18px rgba(6,18,36,0.5) }
+.bubble{ padding:12px 14px; border-radius:12px; width:min(720px, 100%); max-width:720px; white-space:pre-wrap; box-shadow: 0 6px 18px rgba(6,18,36,0.5); }
 .msg.left .bubble{ background: rgba(255,255,255,0.03); color:var(--text) }
 .msg.right .bubble{ background: linear-gradient(90deg,#163a6c,#1a5aff); color:#fff }
 .avatar-small{ width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; color:#fff }

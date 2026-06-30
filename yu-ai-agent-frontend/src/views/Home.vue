@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page home-page">
     <div class="header-wrapper">
       <div class="flow-light" v-if="showFlow">
         <span class="light-strip left"></span>
@@ -26,6 +26,8 @@
         <button class="btn-primary">立即体验 →</button>
       </router-link>
     </div>
+
+    <div class="home-footer">© 2026 鱼皮 AI 超级智能体</div>
   </div>
 </template>
 
