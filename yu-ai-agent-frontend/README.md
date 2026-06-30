@@ -10,4 +10,4 @@ npm run dev
 
 应用将运行在 `http://localhost:3000`，前端请求基准地址已配置为 `http://localhost:8123/api`。
 
-版权：版权所有 © 2026 鱼皮 AI 超级智能体。
+版权：版权所有 © 2026 AI 超级智能体。

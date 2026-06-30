@@ -6,7 +6,7 @@
         <span class="light-strip right"></span>
       </div>
       <div class="app-header">
-        <div class="neon-title">鱼皮 AI 超级智能体</div>
+        <div class="neon-title">AI 超级智能体</div>
         <div class="neon-sub">探索AI的无限可能</div>
       </div>
     </div>
@@ -27,7 +27,7 @@
       </router-link>
     </div>
 
-    <div class="home-footer">© 2026 鱼皮 AI 超级智能体</div>
+    <div class="home-footer">© 2026 AI 超级智能体</div>
   </div>
 </template>
 

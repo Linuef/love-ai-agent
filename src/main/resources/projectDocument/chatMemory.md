@@ -2,7 +2,7 @@
 
 ## 阅读源码
 
-我阅读了MesageWindowChatMemory的源码，发现操作能保存多少轮会话记录的方法是process方法，实现原理很简单：
+我阅读了MessageWindowChatMemory的源码，发现操作能保存多少轮会话记录的方法是process方法，实现原理很简单：
 
 ```
 Set<Message> memoryMessagesSet = new HashSet<>(memoryMessages);
@@ -12,7 +12,7 @@ boolean hasNewSystemMessage = newMessages.stream()
     
 这一段源码的功能，是查看新的会话记录中，是否有新的不同于旧的系统消息
 ```
- 
+
 
 
 ```
