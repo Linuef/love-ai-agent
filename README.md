@@ -2,7 +2,7 @@
 
 ## 项目架构设计图
 
-![image-20260630202430991](C:\Users\20496\AppData\Roaming\Typora\typora-user-images\image-20260630202430991.png)
+![项目架构设计图](assets/项目架构设计图.png)
 
 ## 项目配置
 
